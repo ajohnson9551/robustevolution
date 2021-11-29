@@ -3,7 +3,7 @@ package tictactoe;
 import evolution.Fitness;
 import evolution.Genome;
 
-public class TicTacToeFitness implements Fitness<int[], Integer> {
+public class TicTacToeFitness implements Fitness {
 
     private final int NUM_GAMES;
     private final TicTacToeGame game;
@@ -16,7 +16,7 @@ public class TicTacToeFitness implements Fitness<int[], Integer> {
     }
 
     @Override
-    public void score(Genome<int[], Integer> g) {
+    public void score(Genome g) {
         int score = 0;
         for (int i = 0; i < NUM_GAMES; i++) {
             score += game.play(g);

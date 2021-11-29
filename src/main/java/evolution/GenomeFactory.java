@@ -1,7 +1,7 @@
 package evolution;
 
-public interface GenomeFactory<Situation, Action> {
+public interface GenomeFactory {
 
-    Genome<Situation, Action> createNew(GeneFactory<Situation, Action> gf, int size);
-    Genome<Situation, Action> createNew(GeneFactory<Situation, Action> gf, Genome<Situation, Action> g1, Genome<Situation, Action> g2);
+    Genome createNew(GeneFactory gf, int size);
+    Genome createNew(GeneFactory gf, Genome g1, Genome g2);
 }

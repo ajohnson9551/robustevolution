@@ -2,7 +2,7 @@ package evolution;
 
 import java.util.*;
 
-public class Population<Situation, Action> {
+public class Population {
 
     private int POP_SIZE;
     private int NUM_BABIES;
@@ -12,10 +12,10 @@ public class Population<Situation, Action> {
     private double MUTATION_RATE;
     private int MAX_MUTATIONS;
     private int CULL;
-    private GeneFactory<Situation, Action> gf;
-    private GenomeFactory<Situation, Action> gnf;
-    private Fitness<Situation, Action> fit;
-    private List<Genome<Situation, Action>> pop = new ArrayList<>();
+    private GeneFactory gf;
+    private GenomeFactory gnf;
+    private Fitness fit;
+    private List<Genome> pop = new ArrayList<>();
     private boolean configuredDependencies = false;
     private boolean configuredGenetics = false;
     private boolean configuredPopulation = false;
@@ -27,7 +27,7 @@ public class Population<Situation, Action> {
 
     }
 
-    public void setDependencies(GeneFactory<Situation, Action> gf, GenomeFactory<Situation, Action> gnf, Fitness<Situation, Action> fit) {
+    public void setDependencies(GeneFactory gf, GenomeFactory gnf, Fitness fit) {
         this.gf = gf;
         this.gnf = gnf;
         this.fit = fit;
@@ -59,10 +59,10 @@ public class Population<Situation, Action> {
         }
     }
 
-    public Genome<Situation, Action> getChampion() {
-        Genome<Situation, Action> best = pop.get(0);
+    public Genome getChampion() {
+        Genome best = pop.get(0);
         int bestScore = best.getScore();
-        for (Genome<Situation, Action> g : pop) {
+        for (Genome g : pop) {
             int score = g.getScore();
             if (score > bestScore) {
                 bestScore = score;
@@ -95,7 +95,7 @@ public class Population<Situation, Action> {
         int totalGenomeSize = 0;
         int maxGenomeSize = 0;
         int maxScore = Integer.MIN_VALUE;
-        for (Genome<Situation, Action> g : pop) {
+        for (Genome g : pop) {
             fit.score(g);
             int genomeSize = g.getGenomeSize();
             totalGenomeSize += genomeSize;
@@ -122,10 +122,10 @@ public class Population<Situation, Action> {
         if (printInfo) {
             System.out.println("Max score = " + maxScore + "/" + fit.getMaxScore());
         }
-        List<Genome<Situation, Action>> babies = new ArrayList<>();
+        List<Genome> babies = new ArrayList<>();
         for (int i = 0; i < BEST_BREEDER_PAIRS*2; i+=2) {
             for (int j = 0; j < NUM_BABIES; j++) {
-                Genome<Situation, Action> baby = breed(pop.get(POP_SIZE - i - 1), pop.get(POP_SIZE - i - 2));
+                Genome baby = breed(pop.get(POP_SIZE - i - 1), pop.get(POP_SIZE - i - 2));
                 babies.add(baby);
             }
         }
@@ -136,11 +136,11 @@ public class Population<Situation, Action> {
                 k = rand.nextInt(POP_SIZE);
             }
             for (int r = 0; r < NUM_BABIES; r++) {
-                Genome<Situation, Action> baby = breed(pop.get(j), pop.get(k));
+                Genome baby = breed(pop.get(j), pop.get(k));
                 babies.add(baby);
             }
         }
-        List<Genome<Situation, Action>> dead = new ArrayList<>();
+        List<Genome> dead = new ArrayList<>();
         for (int i = 0; i < (BEST_BREEDER_PAIRS + RANDOM_BREEDER_PAIRS)*NUM_BABIES; i++) {
             dead.add(pop.get(i));
         }
@@ -151,9 +151,9 @@ public class Population<Situation, Action> {
         }
     }
 
-    private Genome<Situation, Action> breed(Genome<Situation, Action> g1, Genome<Situation, Action> g2) {
+    private Genome breed(Genome g1, Genome g2) {
         Random rand = new Random();
-        Genome<Situation, Action> baby = gnf.createNew(gf, g1, g2);
+        Genome baby = gnf.createNew(gf, g1, g2);
         if (rand.nextDouble() < MUTATION_RATE) {
             int mutations = rand.nextInt(MAX_MUTATIONS) + 1;
             for (int i = 0; i < mutations; i++) {

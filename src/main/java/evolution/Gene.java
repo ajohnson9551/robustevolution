@@ -1,9 +1,14 @@
 package evolution;
 
-public interface Gene<Situation, Action> {
+public abstract class Gene {
 
-    Action act(Situation sit);
-    void randomize();
-    void mutate();
-    void print();
+    public abstract void randomize();
+    public abstract void mutate();
+    public abstract void print();
+    public abstract Situation getSit();
+    public abstract Action getAct();
+
+    public Action act(Situation sit) {
+        return getSit().applies(sit) ? getAct() : null;
+    }
 }

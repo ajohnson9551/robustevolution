@@ -3,7 +3,7 @@ package connect4;
 import evolution.Fitness;
 import evolution.Genome;
 
-public class Connect4Fitness implements Fitness<int[], Integer> {
+public class Connect4Fitness implements Fitness {
 
     private final double GENOME_SIZE_PENALTY;
     private final int NUM_GAMES;
@@ -17,7 +17,7 @@ public class Connect4Fitness implements Fitness<int[], Integer> {
     }
 
     @Override
-    public void score(Genome<int[], Integer> g) {
+    public void score(Genome g) {
         int score = 0;
         for (int i = 0; i < NUM_GAMES; i++) {
             score += game.play(g);

@@ -1,7 +1,7 @@
 package evolution;
 
-public interface Fitness<Situation, Action> {
+public interface Fitness {
 
-    void score(Genome<Situation, Action> g);
+    void score(Genome g);
     int getMaxScore();
 }

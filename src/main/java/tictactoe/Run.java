@@ -8,7 +8,7 @@ public class Run {
         int[][] data;
         int maxScore;
 
-        int cycles = 1000; // must be at least 100
+        int cycles = 5000; // must be at least 100
 
         int numGames = 200;
         double genomeSizePenalty = 0.05;
@@ -23,11 +23,11 @@ public class Run {
         int maxMutations = 4;
         int initialGenomeLength = 10;
 
-        GeneFactory<int[], Integer> gf = new DefaultGeneFactory<>(TicTacToeGene.class);
-        GenomeFactory<int[], Integer> gnf = new DefaultGenomeFactory<>(TicTacToeGenome.class);
-        Fitness<int[], Integer>  fit = new TicTacToeFitness(numGames, new TicTacToeGame(), genomeSizePenalty);
+        GeneFactory gf = new DefaultGeneFactory(TicTacToeGene.class);
+        GenomeFactory gnf = new DefaultGenomeFactory(TicTacToeGenome.class);
+        Fitness fit = new TicTacToeFitness(numGames, new TicTacToeGame(), genomeSizePenalty);
         maxScore = fit.getMaxScore();
-        Population<int[], Integer> pop = new Population<>();
+        Population pop = new Population();
         pop.setDependencies(gf, gnf, fit);
         pop.setPopulationParams(popSize, numBabies, bestBreederPairs, cull, randomBreederPairs);
         pop.setGeneticsParams(mutationRate, maxMutations, initialGenomeLength);
@@ -35,7 +35,7 @@ public class Run {
         data = pop.evolve(cycles, true);
         pop.getChampion().print();
 
-        DisplayChart chart = new DisplayChart(
+        DataLineChart chart = new DataLineChart(
                 "Tic Tac Toe Evolution Data",
                 "Score from " + numGames + " Games and Genome Size",
                 data,

@@ -7,7 +7,7 @@ public class Run {
         int[][] data;
         int maxScore;
 
-        int cycles = 10000; // must be at least 100
+        int cycles = 2000; // must be at least 100
 
         int numGames = 200;
         double genomeSizePenalty = 0.1;
@@ -22,11 +22,11 @@ public class Run {
         int maxMutations = 4;
         int initialGenomeLength = 10;
 
-        GeneFactory<int[], Integer> gf = new DefaultGeneFactory<>(Connect4Gene.class);
-        GenomeFactory<int[], Integer> gnf = new DefaultGenomeFactory<>(Connect4Genome.class);
-        Fitness<int[], Integer> fit = new Connect4Fitness(numGames, new Connect4Game(), genomeSizePenalty);
+        GeneFactory gf = new DefaultGeneFactory(Connect4Gene.class);
+        GenomeFactory gnf = new DefaultGenomeFactory(Connect4Genome.class);
+        Fitness fit = new Connect4Fitness(numGames, new Connect4Game(), genomeSizePenalty);
         maxScore = fit.getMaxScore();
-        Population<int[], Integer> pop = new Population<>();
+        Population pop = new Population();
         pop.setDependencies(gf, gnf, fit);
         pop.setPopulationParams(popSize, numBabies, bestBreederPairs, cull, randomBreederPairs);
         pop.setGeneticsParams(mutationRate, maxMutations, initialGenomeLength);
@@ -34,7 +34,7 @@ public class Run {
         data = pop.evolve(cycles, true);
         pop.getChampion().print();
 
-        DisplayChart chart = new DisplayChart(
+        DataLineChart chart = new DataLineChart(
                 "Connect 4 Evolution Data",
                 "Score from " + numGames + " Games and Genome Size",
                 data,

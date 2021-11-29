@@ -1,53 +1,47 @@
 package connect4;
 
+import evolution.Action;
 import evolution.Gene;
+import evolution.Situation;
 
 import java.util.Arrays;
 import java.util.Random;
 
-public class Connect4Gene implements Gene<int[], Integer> {
+public class Connect4Gene extends Gene {
 
-    int[] lookFor = new int[42];
-    int moveHere = 0;
+    private Connect4Situation lookFor;
+    private Connect4Action moveHere;
 
     public Connect4Gene(Connect4Gene g) {
         this.moveHere = g.moveHere;
-        this.lookFor = Arrays.copyOfRange(g.lookFor, 0, 42);
+        this.lookFor = new Connect4Situation(Arrays.copyOfRange(g.lookFor.getBoard(), 0, 42));
     }
 
     public Connect4Gene() {
-    }
-
-    @Override
-    public Integer act(int[] sit) {
-        for (int i = 0; i < 42; i++) {
-            if (lookFor[i] != 2 && lookFor[i] != sit[i]) {
-                return null;
-            }
-        }
-        return moveHere;
+        lookFor = new Connect4Situation(new int[42]);
+        moveHere = Connect4Action.getAction(0);
     }
 
     @Override
     public void randomize() {
         Random rand = new Random();
-        lookFor = new int[42];
+        lookFor.setBoard(new int[42]);
         int numMoves = rand.nextInt(42);
         for (int i = 0; i < numMoves; i++) {
             dropRandom(lookFor);
         }
-        moveHere = rand.nextInt(7);
+        moveHere = Connect4Action.getAction(rand.nextInt(7));
     }
 
-    public void dropRandom(int[] board) {
+    public void dropRandom(Connect4Situation sit) {
         Random rand = new Random();
         int move = rand.nextInt(4) - 1;
-        int moveHere = rand.nextInt(7);
-        while(moveHere < 42 && board[moveHere] != 0) {
-            moveHere += 7;
+        int moveIndex = rand.nextInt(7);
+        while(moveIndex < 42 && sit.getBoard()[moveIndex] != 0) {
+            moveIndex += 7;
         }
-        if (moveHere < 42) {
-            board[moveHere] = move;
+        if (moveIndex < 42) {
+            sit.setBoardAt(moveIndex, move);
         }
     }
 
@@ -58,20 +52,20 @@ public class Connect4Gene implements Gene<int[], Integer> {
         if (r == 0) {
             dropRandom(lookFor);
         } else {
-            moveHere = rand.nextInt(7);
+            moveHere = Connect4Action.getAction(rand.nextInt(7));
         }
     }
 
     @Override
     public void print() {
         for (int i = 5; i >= 0; i--) {
-            int a = lookFor[7*i];
-            int b = lookFor[7*i + 1];
-            int c = lookFor[7*i + 2];
-            int d = lookFor[7*i + 3];
-            int e = lookFor[7*i + 4];
-            int f = lookFor[7*i + 5];
-            int g = lookFor[7*i + 6];
+            int a = lookFor.getBoardAt(7*i);
+            int b = lookFor.getBoardAt(7*i + 1);
+            int c = lookFor.getBoardAt(7*i + 2);
+            int d = lookFor.getBoardAt(7*i + 3);
+            int e = lookFor.getBoardAt(7*i + 4);
+            int f = lookFor.getBoardAt(7*i + 5);
+            int g = lookFor.getBoardAt(7*i + 6);
             String A = a >= 0 ? " " + a : "" + a;
             String B = b >= 0 ? " " + b : "" + b;
             String C = c >= 0 ? " " + c : "" + c;
@@ -81,6 +75,16 @@ public class Connect4Gene implements Gene<int[], Integer> {
             String G = g >= 0 ? " " + g : "" + g;
             System.out.println("|" + A + " " + B + " " + C + " " + D + " " + E + " " + F + " " + G + "|");
         }
-        System.out.println("Move at position " + moveHere);
+        System.out.println("Move at position " + moveHere.getMove());
+    }
+
+    @Override
+    public Situation getSit() {
+        return lookFor;
+    }
+
+    @Override
+    public Action getAct() {
+        return moveHere;
     }
 }

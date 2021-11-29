@@ -12,12 +12,12 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import java.awt.*;
 
-public class DisplayChart extends ApplicationFrame {
+public class DataLineChart extends ApplicationFrame {
 
     int[][] data;
     int cycles;
 
-    public DisplayChart(String title, String chartTitle, int[][] data, int maxScore, int cycles) {
+    public DataLineChart(String title, String chartTitle, int[][] data, int maxScore, int cycles) {
         super(title);
         this.data = data;
         this.cycles = cycles;

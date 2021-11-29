@@ -7,16 +7,17 @@ import java.util.Random;
 public class TicTacToeGame {
 
 
-    public int play(Genome<int[], Integer> g) {
+    public int play(Genome g) {
         Random rand = new Random();
-        int[] board = new int[9];
+        TicTacToeSituation sit = new TicTacToeSituation(new int[9]);
+        int[] board = sit.getBoard();
         int lastMoved = 2*rand.nextInt(2) - 1;
         int totalMoves = 0;
         while (totalMoves < 9) {
             if (lastMoved == -1) {
-                Integer a = g.advise(board);
-                if (a != null && board[a] == 0) {
-                    board[a] = 1;
+                TicTacToeAction act = (TicTacToeAction) g.advise(sit);
+                if (act != null && board[act.getMove()] == 0) {
+                    board[act.getMove()] = 1;
                 } else {
                     makeRandomMove(board);
                 }

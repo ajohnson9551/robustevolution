@@ -1,22 +1,24 @@
 package connect4;
 
+import evolution.Action;
 import evolution.Genome;
 
 import java.util.Random;
 
 public class Connect4Game {
 
-    public int play(Genome<int[], Integer> g) {
-        int[] board = new int[42];
+    public int play(Genome g) {
+        Connect4Situation sit = new Connect4Situation(new int[42]);
+        int[] board = sit.getBoard();
         Random rand = new Random();
         int lastMoved = 2*rand.nextInt(2) - 1;
         int totalMoves = 0;
         while (totalMoves < 42) {
             int move;
             if (lastMoved == -1) {
-                Integer a = g.advise(board);
-                if (a != null && board[35 + a] == 0) {
-                    move = dropFromAbove(board, a);
+                Connect4Action act = (Connect4Action) g.advise(sit);
+                if (act != null && board[35 + act.getMove()] == 0) {
+                    move = dropFromAbove(board, act.getMove());
                 } else {
                     move = makeRandomMove(board);
                 }

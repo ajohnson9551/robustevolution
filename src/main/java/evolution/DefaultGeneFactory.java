@@ -2,34 +2,34 @@ package evolution;
 
 import java.util.Random;
 
-public class DefaultGeneFactory<Situation, Action> implements GeneFactory<Situation, Action> {
+public class DefaultGeneFactory implements GeneFactory {
 
-    Class geneClassName;
+    private Class geneClassName;
 
     public DefaultGeneFactory(Class geneClassName) {
         this.geneClassName = geneClassName;
     }
 
     @Override
-    public Gene<Situation, Action> createNew() {
-        Gene<Situation, Action> g = createFromConstructor();
+    public Gene createNew() {
+        Gene g = createFromConstructor();
         g.randomize();
         return g;
     }
 
     @Override
-    public Gene<Situation, Action> createNew(Gene<Situation, Action> g1, Gene<Situation, Action> g2) {
+    public Gene createNew(Gene g1, Gene g2) {
         Random rand = new Random();
         if (g1 == null || g2 == null) {
-            Gene<Situation, Action> g = (g1 != null ? g1 : g2);
+            Gene g = (g1 != null ? g1 : g2);
             return rand.nextInt(2) == 0 ? createFromConstructor(g) : null;
         }
         return createFromConstructor((rand.nextInt(2) == 0 ? g1 : g2));
     }
 
-    public Gene<Situation, Action> createFromConstructor() {
+    public Gene createFromConstructor() {
         try {
-            return (Gene<Situation, Action>) geneClassName.getDeclaredConstructor().newInstance();
+            return (Gene) geneClassName.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -37,9 +37,9 @@ public class DefaultGeneFactory<Situation, Action> implements GeneFactory<Situat
         return null;
     }
 
-    public Gene<Situation, Action> createFromConstructor(Gene g) {
+    public Gene createFromConstructor(Gene g) {
         try {
-            return (Gene<Situation, Action>) geneClassName
+            return (Gene) geneClassName
                     .getDeclaredConstructor(new Class[]{geneClassName}).newInstance(new Gene[]{g});
         } catch (Exception e) {
             e.printStackTrace();
