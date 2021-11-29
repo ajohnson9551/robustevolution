@@ -5,6 +5,7 @@ import evolution.GeneFactory;
 import evolution.Genome;
 import evolution.GenomeFactory;
 
+@Deprecated
 public class TicTacToeGenomeFactory implements GenomeFactory<int[], Integer> {
 
     @Override

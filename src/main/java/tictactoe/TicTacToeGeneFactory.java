@@ -5,6 +5,7 @@ import evolution.GeneFactory;
 
 import java.util.Random;
 
+@Deprecated
 public class TicTacToeGeneFactory implements GeneFactory<int[], Integer> {
 
     @Override

@@ -1,17 +1,16 @@
-package tictactoe;
+package connect4;
 
 import evolution.*;
 
 public class Run {
-
     public static void main(String[] args) {
         int[][] data;
         int maxScore;
 
-        int cycles = 1000; // must be at least 100
+        int cycles = 10000; // must be at least 100
 
         int numGames = 200;
-        double genomeSizePenalty = 0.05;
+        double genomeSizePenalty = 0.1;
 
         int popSize = 200;
         int numBabies = 8;
@@ -23,9 +22,9 @@ public class Run {
         int maxMutations = 4;
         int initialGenomeLength = 10;
 
-        GeneFactory<int[], Integer> gf = new DefaultGeneFactory<>(TicTacToeGene.class);
-        GenomeFactory<int[], Integer> gnf = new DefaultGenomeFactory<>(TicTacToeGenome.class);
-        Fitness<int[], Integer>  fit = new TicTacToeFitness(numGames, new TicTacToeGame(), genomeSizePenalty);
+        GeneFactory<int[], Integer> gf = new DefaultGeneFactory<>(Connect4Gene.class);
+        GenomeFactory<int[], Integer> gnf = new DefaultGenomeFactory<>(Connect4Genome.class);
+        Fitness<int[], Integer> fit = new Connect4Fitness(numGames, new Connect4Game(), genomeSizePenalty);
         maxScore = fit.getMaxScore();
         Population<int[], Integer> pop = new Population<>();
         pop.setDependencies(gf, gnf, fit);
@@ -36,7 +35,7 @@ public class Run {
         pop.getChampion().print();
 
         DisplayChart chart = new DisplayChart(
-                "Tic Tac Toe Evolution Data",
+                "Connect 4 Evolution Data",
                 "Score from " + numGames + " Games and Genome Size",
                 data,
                 maxScore,

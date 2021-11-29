@@ -1,5 +1,6 @@
 package tictactoe;
 
+import evolution.DefaultGeneFactory;
 import evolution.Gene;
 import evolution.GeneFactory;
 import evolution.Genome;
@@ -37,8 +38,8 @@ public class TicTacToeGenome implements Genome<int[], Integer> {
                 }
                 break;
             case 2:
-                GeneFactory<int[], Integer> gnf = new TicTacToeGeneFactory();
-                genes.add(rand.nextInt(genes.size()), gnf.createNew());
+                GeneFactory<int[], Integer> gf = new DefaultGeneFactory<>(TicTacToeGene.class);
+                genes.add(rand.nextInt(genes.size()), gf.createNew());
                 break;
             case 3:
                 genes.get(rand.nextInt(genes.size())).mutate();
