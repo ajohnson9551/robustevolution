@@ -19,15 +19,17 @@ public class TicTacToeGenome implements Genome<int[], Integer> {
         int r = rand.nextInt(4);
         switch (r) {
             case 0:
-                int a = rand.nextInt(genes.size());
-                int b = rand.nextInt(genes.size());
-                while (a == b) {
-                    b = rand.nextInt(genes.size());
+                if (genes.size() > 1) {
+                    int a = rand.nextInt(genes.size());
+                    int b = rand.nextInt(genes.size());
+                    while (a == b) {
+                        b = rand.nextInt(genes.size());
+                    }
+                    Gene<int[], Integer> A = genes.get(a);
+                    Gene<int[], Integer> B = genes.get(b);
+                    genes.set(a, B);
+                    genes.set(b, A);
                 }
-                Gene<int[], Integer> A = genes.get(a);
-                Gene<int[], Integer> B = genes.get(b);
-                genes.set(a, B);
-                genes.set(b, A);
                 break;
             case 1:
                 if (genes.size() > 1) {

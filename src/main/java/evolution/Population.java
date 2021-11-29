@@ -2,7 +2,6 @@ package evolution;
 
 import java.util.*;
 
-
 public class Population<Situation, Action> {
 
     private int POP_SIZE;

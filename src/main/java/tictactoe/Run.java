@@ -14,7 +14,7 @@ public class Run {
         int cycles = 10000; // must be at least 100
 
         int numGames = 200;
-        double genomeSizePenalty = 0.1;
+        double genomeSizePenalty = 0.05;
 
         int popSize = 200;
         int numBabies = 8;
@@ -42,7 +42,7 @@ public class Run {
                 "Tic Tac Toe Evolution Data",
                 "Score from " + numGames + " Games and Genome Size",
                 data,
-                fit.getMaxScore(),
+                maxScore,
                 cycles);
         chart.pack();
         chart.setVisible(true);
