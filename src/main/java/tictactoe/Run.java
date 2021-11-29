@@ -11,7 +11,7 @@ public class Run {
         int[][] data;
         int maxScore;
 
-        int cycles = 100; // must be at least 100
+        int cycles = 10000; // must be at least 100
 
         int numGames = 200;
         double genomeSizePenalty = 0.1;
