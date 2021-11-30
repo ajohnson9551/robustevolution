@@ -2,12 +2,13 @@ package connect4;
 
 import evolution.Action;
 
+import java.util.Random;
+
 public class Connect4Action implements Action {
 
-    private static Connect4Action[] acts;
-    private final Integer move;
+    private Integer move;
 
-    private Connect4Action(Integer move) {
+    public Connect4Action(Integer move) {
         this.move = move;
     }
 
@@ -15,13 +16,15 @@ public class Connect4Action implements Action {
         return move;
     }
 
-    public static Connect4Action getAction(int move) {
-        if (acts == null) {
-            acts = new Connect4Action[7];
-            for (int i = 0; i < 7; i++) {
-                acts[i] = new Connect4Action(i);
-            }
-        }
-        return acts[move];
+    @Override
+    public void mutate() {
+        Random rand = new Random();
+        this.move = rand.nextInt(7);
+    }
+
+    @Override
+    public void randomize() {
+        Random rand = new Random();
+        this.move = rand.nextInt(7);
     }
 }

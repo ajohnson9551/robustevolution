@@ -13,33 +13,29 @@ public class TicTacToeGene extends Gene {
     TicTacToeAction moveHere;
 
     public TicTacToeGene(TicTacToeGene g) {
-        this.moveHere = g.moveHere;
-        this.lookFor = new TicTacToeSituation(Arrays.copyOfRange(g.lookFor.getBoard(), 0, 9));
+        this.moveHere = new TicTacToeAction(g.moveHere.getMove());
+        this.lookFor = new TicTacToeSituation(Arrays.copyOf(g.lookFor.getBoard(), 9));
     }
 
     public TicTacToeGene() {
         this.lookFor = new TicTacToeSituation(new int[9]);
-        this.moveHere = TicTacToeAction.getAction(0);
+        this.moveHere = new TicTacToeAction(0);
     }
 
     @Override
     public void randomize() {
-        Random rand = new Random();
-        lookFor.setBoard(new int[9]);
-        for (int i = 0; i < 9; i++) {
-            lookFor.setBoardAt(i,rand.nextInt(4) - 1);
-        }
-        moveHere = TicTacToeAction.getAction(rand.nextInt(9));
+        lookFor.randomize();
+        moveHere.randomize();
     }
 
     @Override
     public void mutate() {
         Random rand = new Random();
-        int m = rand.nextInt(10);
-        if (m < 9) {
-            lookFor.setBoardAt(m,rand.nextInt(4) - 1);
+        int m = rand.nextInt(2);
+        if (m == 0) {
+            lookFor.mutate();
         } else {
-            moveHere = TicTacToeAction.getAction(rand.nextInt(9));
+            moveHere.mutate();
         }
     }
 

@@ -17,7 +17,7 @@ public class DataLineChart extends ApplicationFrame {
     int[][] data;
     int cycles;
 
-    public DataLineChart(String title, String chartTitle, int[][] data, int maxScore, int cycles) {
+    public DataLineChart(String title, String chartTitle, int[][] data, int minScore, int maxScore, int scoreStep, int cycles) {
         super(title);
         this.data = data;
         this.cycles = cycles;
@@ -54,8 +54,8 @@ public class DataLineChart extends ApplicationFrame {
 
         NumberAxis range1 = new NumberAxis("Score");
         NumberAxis range2 = new NumberAxis("Genome Size");
-        range1.setRange(0, maxScore);
-        range1.setTickUnit(new NumberTickUnit(10));
+        range1.setRange(minScore, maxScore);
+        range1.setTickUnit(new NumberTickUnit(scoreStep));
         range2.setRange(0, 1.5 * data[4][1]);
         range2.setTickUnit(new NumberTickUnit(10));
 

@@ -13,46 +13,31 @@ public class Connect4Gene extends Gene {
     private Connect4Action moveHere;
 
     public Connect4Gene(Connect4Gene g) {
-        this.moveHere = g.moveHere;
+        this.moveHere = new Connect4Action(g.moveHere.getMove());
         this.lookFor = new Connect4Situation(Arrays.copyOfRange(g.lookFor.getBoard(), 0, 42));
     }
 
     public Connect4Gene() {
         lookFor = new Connect4Situation(new int[42]);
-        moveHere = Connect4Action.getAction(0);
+        moveHere = new Connect4Action(0);
     }
 
     @Override
     public void randomize() {
-        Random rand = new Random();
-        lookFor.setBoard(new int[42]);
-        int numMoves = rand.nextInt(42);
-        for (int i = 0; i < numMoves; i++) {
-            dropRandom(lookFor);
-        }
-        moveHere = Connect4Action.getAction(rand.nextInt(7));
+        lookFor.randomize();
+        moveHere.randomize();
     }
 
-    public void dropRandom(Connect4Situation sit) {
-        Random rand = new Random();
-        int move = rand.nextInt(4) - 1;
-        int moveIndex = rand.nextInt(7);
-        while(moveIndex < 42 && sit.getBoard()[moveIndex] != 0) {
-            moveIndex += 7;
-        }
-        if (moveIndex < 42) {
-            sit.setBoardAt(moveIndex, move);
-        }
-    }
+
 
     @Override
     public void mutate() {
         Random rand = new Random();
         int r = rand.nextInt(2);
         if (r == 0) {
-            dropRandom(lookFor);
+            lookFor.mutate();
         } else {
-            moveHere = Connect4Action.getAction(rand.nextInt(7));
+            moveHere.mutate();
         }
     }
 

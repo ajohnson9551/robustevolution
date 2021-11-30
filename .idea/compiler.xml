@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="NeuralEvolution" />
-        <module name="tictactoeevolution" />
+        <module name="robustevolution" />
       </profile>
     </annotationProcessing>
   </component>

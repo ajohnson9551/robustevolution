@@ -2,12 +2,13 @@ package tictactoe;
 
 import evolution.Action;
 
+import java.util.Random;
+
 public class TicTacToeAction implements Action {
 
-    private static TicTacToeAction[] acts;
-    private final Integer move;
+    private Integer move;
 
-    private TicTacToeAction(int move) {
+    public TicTacToeAction(int move) {
         this.move = move;
     }
 
@@ -15,13 +16,14 @@ public class TicTacToeAction implements Action {
         return move;
     }
 
-    public static TicTacToeAction getAction(int move) {
-        if (acts == null) {
-            acts = new TicTacToeAction[9];
-            for (int i = 0; i < 9; i++) {
-                acts[i] = new TicTacToeAction(i);
-            }
-        }
-        return acts[move];
+    @Override
+    public void mutate() {
+        Random rand = new Random();
+        move = rand.nextInt(9);
+    }
+
+    @Override
+    public void randomize() {
+        mutate();
     }
 }

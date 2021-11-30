@@ -1,5 +1,7 @@
 package evolution;
 
+import lunarlander.LunarLanderFitness;
+
 import java.util.*;
 
 public class Population {

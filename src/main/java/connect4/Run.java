@@ -38,7 +38,9 @@ public class Run {
                 "Connect 4 Evolution Data",
                 "Score from " + numGames + " Games and Genome Size",
                 data,
+                0,
                 maxScore,
+                10,
                 cycles);
         chart.pack();
         chart.setVisible(true);
