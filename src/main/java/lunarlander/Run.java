@@ -10,9 +10,9 @@ public class Run {
         int[][] data;
         int maxScore;
 
-        int cycles = 5000; // must be at least 100
+        int cycles = 50000; // must be at least 100
 
-        int numGames = 15;
+        int numGames = 10;
         boolean randomStart = true;
         double genomeSizePenalty = 0.1;
 
@@ -22,9 +22,9 @@ public class Run {
         int cull = 10;
         int randomBreederPairs = 2;
 
-        double mutationRate = 0.2;
+        double mutationRate = 0.3;
         int maxMutations = 4;
-        int initialGenomeLength = 10;
+        int initialGenomeLength = 30;
 
         GeneFactory gf = new DefaultGeneFactory(LunarLanderGene.class);
         GenomeFactory gnf = new DefaultGenomeFactory(LunarLanderGenome.class);

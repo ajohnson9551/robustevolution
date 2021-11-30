@@ -42,9 +42,9 @@ public class LunarLanderGene extends Gene {
         System.out.println("Altitude: " + round(lookFor.getAlt())
                 + ", tolerance " + round(lookFor.getTols()[0]));
         System.out.println("Velocity: (" + round(lookFor.getVel()[0]) + "," + round(lookFor.getVel()[1])
-                + "), tolerance " + round(lookFor.getTols()[1]));
+                + "), tolerances (" + round(lookFor.getTols()[1]) + "," + round(lookFor.getTols()[2]) + ")");
         System.out.println("Angle: " + round(lookFor.getAng())
-                + ", tolerance " + round(lookFor.getTols()[2]));
+                + ", tolerance " + round(lookFor.getTols()[3]));
         System.out.println("Thrust = " + doThis.getThrust() + ", Turn = " + doThis.getTurn());
     }
 

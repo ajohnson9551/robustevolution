@@ -156,10 +156,10 @@ public class LunarLanderGame implements KeyListener {
 
     public void randomizeStart() {
         Random rand = new Random();
-        startPos[0] = 100 + 100*rand.nextInt(5);
-        startPos[1] = 200 + 100*rand.nextInt(3);
-        startVel[0] = 50*(rand.nextInt(7) - 3);
-        startVel[1] = 10*(rand.nextInt(5) - 2);
+        startPos[0] = 100.0 + 400.0*rand.nextDouble();
+        startPos[1] = 200.0 + 300.0*rand.nextDouble();
+        startVel[0] = 150.0*(2.0*rand.nextDouble() - 1.0);
+        startVel[1] = 20.0*(2.0*rand.nextDouble() - 1.0);
         startAng = 6.28*rand.nextDouble();
         cos = Math.cos(startAng);
         sin = Math.sin(startAng);
