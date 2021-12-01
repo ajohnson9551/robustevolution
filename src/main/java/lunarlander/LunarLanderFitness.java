@@ -17,7 +17,7 @@ public class LunarLanderFitness implements Fitness {
 
     @Override
     public void score(Genome g) {
-        int score = 0;
+        double score = 0.0;
         for (int i = 0; i < NUM_GAMES; i++) {
             LunarLanderGame game = new LunarLanderGame(false, false, false, START_MODE, i);
             score += game.play((LunarLanderGenome) g).computeScore();

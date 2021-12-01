@@ -119,7 +119,7 @@ public class LunarLanderGame implements KeyListener {
             acc[0] = 0;
             acc[1] = 0;
             canvas.updateInfo(pos, cos, sin, fuel);
-            canvas.setScore(llscore.computeScore());
+            canvas.setScore((int) llscore.computeScore());
             canvas.repaint();
             try {
                 TimeUnit.SECONDS.sleep(3);
@@ -153,9 +153,14 @@ public class LunarLanderGame implements KeyListener {
     }
 
     public void updateSituation() {
-        // note vel is passed by reference since it is an array
-        sit.setAlt(pos[1]);
-        sit.setAng(ang);
+        sit.setAlt(0, pos[1]);
+        sit.setAlt(1, pos[1]);
+        sit.setVel(0, 0, vel[0]);
+        sit.setVel(0, 1, vel[0]);
+        sit.setVel(1, 0, vel[1]);
+        sit.setVel(1, 1, vel[1]);
+        sit.setAng(0, ang);
+        sit.setAng(1, ang);
     }
 
     public void doThink(LunarLanderGenome g) {

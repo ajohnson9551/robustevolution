@@ -13,20 +13,20 @@ public class Run {
 
         int numGames = 30; // should be exactly 30 if startMode is 2
         int startMode = 2; // 0 = fixed, 1 = random, 2 = preset range of 30 starts to iterate through
-        double genomeSizePenalty = 0;
+        double genomeSizePenalty = 0.1;
 
-        int popSize = 100;
-        int numBabies = 12;
+        int popSize = 500;
+        int numBabies = 16;
         int bestBreederPairs = 3;
-        int okayBreederPairs = 3;
+        int okayBreederPairs = 6;
         double okayThreshhold = 0.5; // above this percentile, genomes are considered "okay"
         int cull = 0;
         int randomBreederPairs = 1;
         boolean elitism = false; // if true, culls and replaces bottom, else culls and replaces randomly
 
         double mutationRate = 0.9;
-        int maxMutations = 5;
-        int initialGenomeLength = 30;
+        int maxMutations = 8;
+        int initialGenomeLength = 20;
 
         GeneFactory gf = new DefaultGeneFactory(LunarLanderGene.class);
         GenomeFactory gnf = new DefaultGenomeFactory(LunarLanderGenome.class);

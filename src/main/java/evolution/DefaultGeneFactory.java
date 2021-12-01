@@ -18,6 +18,11 @@ public class DefaultGeneFactory implements GeneFactory {
     }
 
     @Override
+    public Gene createNew(Gene g) {
+        return createFromConstructor(g);
+    }
+
+    @Override
     public Gene createNew(Gene g1, Gene g2) {
         Random rand = new Random();
         if (g1 == null || g2 == null) {

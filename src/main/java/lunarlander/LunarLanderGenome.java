@@ -21,7 +21,8 @@ public class LunarLanderGenome extends Genome {
     @Override
     public void mutate() {
         Random rand = new Random();
-        int r = rand.nextInt(4);
+        int r = rand.nextInt(6);
+        GeneFactory gf = new DefaultGeneFactory(LunarLanderGene.class);
         switch (r) {
             case 0:
                 if (genes.size() > 1) {
@@ -36,17 +37,21 @@ public class LunarLanderGenome extends Genome {
                     genes.set(b, A);
                 }
                 break;
+            case 5:
             case 1:
                 if (genes.size() > 1) {
                     genes.remove(rand.nextInt(genes.size()));
                 }
                 break;
             case 2:
-                GeneFactory gf = new DefaultGeneFactory(LunarLanderGene.class);
                 genes.add(rand.nextInt(genes.size()), gf.createNew());
                 break;
             case 3:
                 genes.get(rand.nextInt(genes.size())).mutate();
+                break;
+            case 4:
+                int i = rand.nextInt(genes.size());
+                genes.add(i, gf.createNew(genes.get(i)));
                 break;
         }
     }
