@@ -15,6 +15,8 @@ public class Run {
         int popSize = 200;
         int numBabies = 8;
         int bestBreederPairs = 2;
+        int okayBreederPairs = 0;
+        double okayThreshhold = 0.3;
         int cull = 10;
         int randomBreederPairs = 2;
 
@@ -28,11 +30,12 @@ public class Run {
         maxScore = fit.getMaxScore();
         Population pop = new Population();
         pop.setDependencies(gf, gnf, fit);
-        pop.setPopulationParams(popSize, numBabies, bestBreederPairs, cull, randomBreederPairs);
+        pop.setPopulationParams(popSize, numBabies, bestBreederPairs, okayBreederPairs, cull,
+                randomBreederPairs, true, okayThreshhold);
         pop.setGeneticsParams(mutationRate, maxMutations, initialGenomeLength);
         pop.genPop();
         data = pop.evolve(cycles, true);
-        pop.getChampion().print();
+        pop.getAllTimeChampion().print();
 
         DataLineChart chart = new DataLineChart(
                 "Connect 4 Evolution Data",

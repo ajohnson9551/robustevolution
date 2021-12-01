@@ -17,8 +17,8 @@ public class LunarLanderGame implements KeyListener {
     static final double startFuel = 100.0;
     static final double fuelConsumptionRate = 7.0;
     static final double turnRate = 3.0;
-    static final double fuelDensity = 1.0;
-    static final double shipMass = 100.0;
+    static final double fuelDensity = 0.0;
+    static final double shipMass = 150.0;
     static final double gravity = 5000.0;
     double[] startPos = {100.0, 400.0};
     double[] startVel = {150.0, 0.0};
@@ -53,13 +53,15 @@ public class LunarLanderGame implements KeyListener {
 
     public static void main (String[] args) {
         // user can play game
-        LunarLanderGame llg = new LunarLanderGame(true,true, true, false);
+        LunarLanderGame llg = new LunarLanderGame(true,true, true, 0, 0);
         System.out.println(llg.play(null).computeScore());
     }
 
-    public LunarLanderGame(boolean draw, boolean tick, boolean playerControl, boolean randomStart) {
-        if (randomStart) {
+    public LunarLanderGame(boolean draw, boolean tick, boolean playerControl, int startMode, int start) {
+        if (startMode == 1) {
             randomizeStart();
+        } else if (startMode == 2) {
+            setStart(start);
         }
         fuel = startFuel;
         pos = Arrays.copyOf(startPos, 2);
@@ -127,6 +129,19 @@ public class LunarLanderGame implements KeyListener {
             frame.dispose();
         }
         return llscore;
+    }
+
+    public void setStart(int start) {
+        int a = start % 2;
+        int b = start % 3;
+        int c = start % 5;
+        startPos[0] = 300.0;
+        startPos[1] = 100.0 + 100.0*b;
+        startVel[0] = 50.0*(c - 2);
+        startVel[1] = 0;
+        startAng = 3.14/2.0 + a*3.14;
+        cos = Math.cos(startAng);
+        sin = Math.sin(startAng);
     }
 
     public double getSpeed() {

@@ -38,9 +38,11 @@ public class DefaultGeneFactory implements GeneFactory {
     }
 
     public Gene createFromConstructor(Gene g) {
+        Gene[] input = new Gene[1];
+        input[0] = g;
         try {
             return (Gene) geneClassName
-                    .getDeclaredConstructor(new Class[]{geneClassName}).newInstance(new Gene[]{g});
+                    .getDeclaredConstructor(new Class[]{geneClassName}).newInstance(input);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);

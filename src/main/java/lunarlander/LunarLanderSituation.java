@@ -28,8 +28,8 @@ public class LunarLanderSituation implements Situation {
 
     @Override
     public LunarLanderSituation clone() {
-        return new LunarLanderSituation(alt, Arrays.copyOf(vel, 2),
-                ang, Arrays.copyOf(tols, 4));
+        return new LunarLanderSituation(this.alt, Arrays.copyOf(this.vel, 2),
+                this.ang, Arrays.copyOf(this.tols, 4));
     }
 
     @Override
@@ -38,21 +38,43 @@ public class LunarLanderSituation implements Situation {
         int r = rand.nextInt(4);
         switch(r) {
             case 0:
-                alt = mutateValue(alt);
+                if (rand.nextInt(4) == 0) {
+                    alt = 400.0*rand.nextDouble();
+                } else {
+                    alt = mutateValue(alt);
+                }
                 break;
             case 1:
                 r = rand.nextInt(2);
-                vel[r] = mutateValue(vel[r]);
+                if (rand.nextInt(4) == 0) {
+                    vel[r] = 200.0*(2.0*rand.nextDouble() - 1.0);
+                } else {
+                    vel[r] = mutateValue(vel[r]);
+                }
                 break;
             case 2:
-                ang = 6.28*rand.nextDouble();
+                if (rand.nextInt(4) == 0) {
+                    ang = 6.28*rand.nextDouble();
+                } else {
+                    ang += (3.14/8.0)*(2.0*rand.nextDouble() - 1.0);
+                }
                 break;
             case 3:
                 r = rand.nextInt(4);
-                if (r < 3) {
-                    tols[r] = mutateValue(tols[r]);
+                if (rand.nextInt(4) == 0) {
+                    if (r > 0 && r < 3) {
+                        tols[r] = 100.0*rand.nextDouble();
+                    } else if (r == 0) {
+                        tols[0] = 100.0*rand.nextDouble();
+                    } else {
+                        tols[3] = 3.14*rand.nextDouble();
+                    }
                 } else {
-                    tols[3] = 3.14*rand.nextDouble();
+                    if (r < 3) {
+                        tols[r] = mutateValue(tols[r]);
+                    } else {
+                        tols[3] += (3.14/4.0)*(2.0*rand.nextDouble() - 1.0);
+                    }
                 }
                 break;
         }
@@ -60,7 +82,7 @@ public class LunarLanderSituation implements Situation {
 
     public double mutateValue(double x) {
         Random rand = new Random();
-        return x * (1.0 + (0.2*(2.0*rand.nextDouble() - 1.0)));
+        return x * (1.0 + (0.1*(2.0*rand.nextDouble() - 1.0)));
     }
 
     @Override
@@ -69,7 +91,7 @@ public class LunarLanderSituation implements Situation {
         alt = 400.0*rand.nextDouble();
         tols[0] = 100.0*rand.nextDouble();
         for (int i = 0; i < 2; i++) {
-            vel[i] = 250.0*(2*rand.nextDouble() - 1);
+            vel[i] = 200.0*(2*rand.nextDouble() - 1);
             tols[1 + i] = 100.0*rand.nextDouble();
         }
         ang = 6.28*rand.nextDouble();

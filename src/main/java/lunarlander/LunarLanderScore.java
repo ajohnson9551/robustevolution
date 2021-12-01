@@ -11,6 +11,6 @@ public class LunarLanderScore {
     }
 
     public int computeScore() {
-        return (int)((100 - finalSpeed) + 0.1*remainingFuel);
+        return (int)((100 - finalSpeed) + 0.05*remainingFuel);
     }
 }

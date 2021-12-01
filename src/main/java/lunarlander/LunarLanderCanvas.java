@@ -44,25 +44,26 @@ public class LunarLanderCanvas extends Canvas {
         this.cos = cos;
         this.sin = sin;
         this.fuel = fuel;
-        double deltaX = newPos[0] - this.pos[0];
-        if (deltaX > 0) {
-            if (shipX + deltaX < width - marginGap) {
-                shipX += deltaX;
-            } else {
-                deltaX -= (width - marginGap) - shipX;
-                craterOffset -= deltaX;
-            }
-        } else {
-            if (shipX + deltaX > marginGap) {
-                shipX += deltaX;
-            } else {
-                deltaX -= marginGap - shipX;
-                craterOffset -= deltaX;
-            }
-        }
-        this.pos[0] = newPos[0];
+//        double deltaX = newPos[0] - this.pos[0];
+//        if (deltaX > 0) {
+//            if (shipX + deltaX < width - marginGap) {
+//                shipX += deltaX;
+//            } else {
+//                deltaX -= (width - marginGap) - shipX;
+//                craterOffset -= deltaX;
+//            }
+//        } else {
+//            if (shipX + deltaX > marginGap) {
+//                shipX += deltaX;
+//            } else {
+//                deltaX -= marginGap - shipX;
+//                craterOffset -= deltaX;
+//            }
+//        }
+//        this.pos[0] = newPos[0];
         this.pos[1] = newPos[1];
-        shipY = (height - (int) pos[1]) - moonSurfaceHeight - shipYOffset;
+        shipX = goodMod((int) newPos[0], width);
+        shipY = (height - (int) newPos[1]) - moonSurfaceHeight - shipYOffset;
     }
 
     public void setScore(int score) {

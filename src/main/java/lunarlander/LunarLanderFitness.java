@@ -7,25 +7,19 @@ public class LunarLanderFitness implements Fitness {
 
     private final double GENOME_SIZE_PENALTY;
     private final int NUM_GAMES;
-    private final boolean RANDOM_START;
+    private final int START_MODE;
 
-    public LunarLanderFitness(int numGames, double genomeSizePenalty, boolean randomStart) {
+    public LunarLanderFitness(int numGames, double genomeSizePenalty, int startMode) {
         this.NUM_GAMES = numGames;
         this.GENOME_SIZE_PENALTY = genomeSizePenalty;
-        this.RANDOM_START = randomStart;
-    }
-
-    public int score(Genome g, boolean yep) {
-        LunarLanderGame game = new LunarLanderGame(yep, yep, false, RANDOM_START);
-        int score = game.play((LunarLanderGenome) g).computeScore();
-        return (int) (score - g.getGenomeSize()*GENOME_SIZE_PENALTY);
+        this.START_MODE = startMode;
     }
 
     @Override
     public void score(Genome g) {
         int score = 0;
         for (int i = 0; i < NUM_GAMES; i++) {
-            LunarLanderGame game = new LunarLanderGame(false, false, false, RANDOM_START);
+            LunarLanderGame game = new LunarLanderGame(false, false, false, START_MODE, i);
             score += game.play((LunarLanderGenome) g).computeScore();
         }
         g.setScore((int) (score - g.getGenomeSize()*GENOME_SIZE_PENALTY));
@@ -33,6 +27,6 @@ public class LunarLanderFitness implements Fitness {
 
     @Override
     public int getMaxScore() {
-        return NUM_GAMES*(110);
+        return NUM_GAMES*(105);
     }
 }

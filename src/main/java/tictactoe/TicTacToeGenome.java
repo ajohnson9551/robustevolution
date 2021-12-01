@@ -41,6 +41,8 @@ public class TicTacToeGenome extends Genome {
 
     @Override
     public void print() {
+        System.out.println("*****");
+        System.out.println("Genome:");
         int j = 0;
         for (Gene g : genes) {
             System.out.println("");
@@ -49,5 +51,7 @@ public class TicTacToeGenome extends Genome {
             System.out.println("");
             j++;
         }
+        System.out.println("Score = " + getScore());
+        System.out.println("*****");
     }
 }
