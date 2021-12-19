@@ -20,7 +20,7 @@ public class LunarLanderFitness implements Fitness {
         double score = 0.0;
         for (int i = 0; i < NUM_GAMES; i++) {
             LunarLanderGame game = new LunarLanderGame(false, false, false, START_MODE, i);
-            score += game.play((LunarLanderGenome) g).computeScore();
+            score += game.play(g).computeScore();
         }
         g.setScore((int) (score - g.getGenomeSize()*GENOME_SIZE_PENALTY));
     }

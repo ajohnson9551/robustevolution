@@ -8,26 +8,38 @@ public class Run {
         int[][] data;
         int maxScore;
 
-        int cycles = 10000; // must be at least 100
+        int cycles = 50000; // must be at least 100
+
+        boolean useTreeGenome = true;
+        int treeDepth = 4;
 
         int numGames = 200;
-        double genomeSizePenalty = 1;
+        double genomeSizePenalty = 0;
 
-        int popSize = 80;
-        int numBabies = 8;
-        int bestBreederPairs = 3;
+        int popSize = 50;
+        int numBabies = 5;
+        int bestBreederPairs = 4;
         int okayBreederPairs = 2;
-        double okayThreshhold = 0.3;
-        int cull = 5;
+        double okayThreshhold = 0.4;
+        int cull = 1;
         int randomBreederPairs = 1;
         boolean elitism = false;
 
-        double mutationRate = 0.2;
-        int maxMutations = 6;
+        double mutationRate = 0.6;
+        int maxMutations = 4;
         int initialGenomeLength = 10;
 
-        GeneFactory gf = new DefaultGeneFactory(TicTacToeGene.class);
-        GenomeFactory gnf = new DefaultGenomeFactory(TicTacToeGenome.class);
+        GeneFactory gf;
+        GenomeFactory gnf;
+        if (!useTreeGenome) {
+            gf = new DefaultGeneFactory(TicTacToeGene.class);
+            gnf = new DefaultGenomeFactory(TicTacToeGenome.class);
+        } else {
+            gf = new DefaultTreeGeneFactory(TicTacToeTreeGene.class);
+            gnf = new DefaultTreeGenomeFactory(TicTacToeTreeGenome.class);
+            initialGenomeLength = treeDepth;
+            genomeSizePenalty = 0;
+        }
         Fitness fit = new TicTacToeFitness(numGames, new TicTacToeGame(), genomeSizePenalty);
         maxScore = fit.getMaxScore();
         Population pop = new Population();

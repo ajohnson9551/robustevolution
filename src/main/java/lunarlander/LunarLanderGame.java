@@ -1,5 +1,7 @@
 package lunarlander;
 
+import evolution.Genome;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -88,7 +90,7 @@ public class LunarLanderGame implements KeyListener {
         }
     }
 
-    public LunarLanderScore play(LunarLanderGenome g) {
+    public LunarLanderScore play(Genome g) {
         // if genome is null, gives player control
         long lastTick = 0L;
         int tickStep = 1000 / tickSpeed;
@@ -163,7 +165,7 @@ public class LunarLanderGame implements KeyListener {
         sit.setAng(1, ang);
     }
 
-    public void doThink(LunarLanderGenome g) {
+    public void doThink(Genome g) {
         LunarLanderAction act = (LunarLanderAction) g.advise(sit);
         if (act != null) {
             turning = act.getTurn();
